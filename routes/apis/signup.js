@@ -17,7 +17,7 @@ router.post('/legacySignUp', (req, res, next) => {
 
   if (req.body.username && (req.body.password.length >= 8)) {
     var params = {
-      connection: "AWS-MySQL-Auth0-Schema",
+      connection: process.env.LEGACY_SIGN_UP_CONNECTION,
       email: req.body.username,
       email_verified: false,
       verify_email: true,
