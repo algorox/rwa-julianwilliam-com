@@ -175,7 +175,7 @@ app.use(function (req, res, next) {
 });
 
 app.use('/', routes);
-app.use('/user', user);
+app.use('/user', ensureLoggedIn('/auth'), ensureTokenValid, user);
 app.use('/api/profile', ensureLoggedIn('/apiAuth'), ensureTokenValid, profileAPIs);
 app.use('/api/utils', ensureLoggedIn('/apiAuth'), ensureTokenValid, utilAPIs);
 app.use('/api/auth0rules', auth0rulesAPIs);

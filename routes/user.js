@@ -1,5 +1,4 @@
 const express = require('express');
-const ensureLoggedIn = require('connect-ensure-login').ensureLoggedIn;
 const router = express.Router();
 
 
@@ -27,8 +26,7 @@ function setUpUser(profile, res) {
 }
 
 /* GET user profile. */
-router.get('/', ensureLoggedIn('/auth'), function (req, res, next) {
-
+router.get('/', function (req, res, next) {
   //
   // When using ROPG Passport Strategy, use this profile
   //
