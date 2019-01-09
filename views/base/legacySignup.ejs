@@ -1,0 +1,38 @@
+<head>
+    <link rel="shortcut icon" type="image/x-icon" href="public/favicon.ico" />
+</head>
+
+<br>
+<div align="center" class="row">
+    <div class="col-sm-2">
+        <img src="https://image.flaticon.com/icons/png/512/55/55160.png" height="100" width="100">
+    </div>
+    <div class="col-sm-8">
+        <h1 align="center">Legacy Signup</h1>
+    </div>
+    <div class="col-sm-2">
+        <br>
+        <a class="btn btn-default pull-right" id="home" href="/" role="button">Home</a>
+        <br>
+        <br>
+        <a class="btn btn-default pull-right" id="login" href="/legacyLogin" role="button">Login</a>
+    </div>
+</div>
+</div>
+
+<div align="center" id="signup_row" class="row">
+    <div class="col-sm-12">
+        <form action="/api/signup/legacySignUp" method="POST">
+            <input type="email" placeholder="Email" name="username">
+            <br>
+            <input type="password" placeholder="Password" name="password">
+            <br>
+            <br>
+            <input type="submit" value="Sign Up">
+        </form>
+    </div>
+    <br>
+    <br>
+    <h6><i>Please note: As this demo is on a Free Heroku licence, SSL is <b>NOT</b> configured</i></h6>
+    <h6><i>For Production use, SSL <b>MUST</b> be configured</i></h6>
+</div>

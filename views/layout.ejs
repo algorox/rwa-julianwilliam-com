@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Auth0 Playground</title>
+  <link rel="stylesheet" type="text/css" href="//cdn.auth0.com/styleguide/1/index.css">
+  <link href="/stylesheets/style.css" rel="stylesheet">
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <script src="//cdn.auth0.com/js/auth0/9.8.1/auth0.min.js"></script>
+  <script src="//cdn.auth0.com/js/lock/11.6.1/lock.min.js"></script>
+
+  <script> function embeddedLock() {
+      var lock = new Auth0Lock('<%= env.AUTH0_CLIENT_ID %>', '<%= env.AUTH0_DOMAIN %>',
+        {
+          theme: {
+            primaryColor: 'orange'
+          },
+          languageDictionary: {
+            title: 'Embedded Sign In'
+          },
+          autoclose: true,
+          closable: true,
+          defaultDatabaseConnection: '<%= env.CONNECTION %>',
+          configurationBaseUrl: '<%= env.CONFIGURATION_BASE_URL %>',
+          auth: {
+            redirect: true,
+            redirectUrl: '<%= env.AUTH0_CALLBACK_URL %>',
+            responseType: 'code',
+            sso: true,
+            audience: '<%= env.AUDIENCE %>',
+            params: {
+              scope: '<%= env.SCOPE %>',
+            }
+          }
+        });
+      lock.show();
+    }
+  </script>
+
+  <%- script %>
+</head>
+
+<body class="container">
+  <%- body %>
+</body>
+
+</html>

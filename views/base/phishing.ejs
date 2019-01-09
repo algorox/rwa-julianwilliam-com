@@ -1,0 +1,96 @@
+<script type="text/javascript">
+
+    function parseJwt(token) {
+        var base64Url = token.split('.')[1];
+        var base64 = base64Url.replace('-', '+').replace('_', '/');
+        return JSON.parse(window.atob(base64));
+    };
+
+    function submitLogin(username, password) {
+
+        var data = {
+            username: username,
+            password: password
+        };
+        var dataJson = JSON.stringify(data);
+
+        $.ajax({
+            url: '<%= env.phishing_login %>',
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            //processData: false,
+            data: dataJson,
+            success: function (data) {
+
+
+
+                if (data.error) {
+                    $('#authn_response').text(JSON.stringify(data, null, '  '));
+                }
+
+                else {
+                    var access_token_decoded = parseJwt(data.access_token)
+                    var id_token_decoded = parseJwt(data.id_token)
+                    $('#authn_response').text(JSON.stringify(access_token_decoded, null, '  ') + '\n' + JSON.stringify(id_token_decoded, null, '  ') + '\n' + JSON.stringify(data, null, '  '));
+                }
+            },
+            error: function (data) {
+                $('#authn_response').text('Authentication Failed\n\n' + data.responseText);
+            }
+        })
+    }
+
+
+
+    $(function () {
+
+        $('#login-form').on('submit', function (e) {
+            e.preventDefault();
+
+            username = document.getElementById('txtUsername').value
+            password = document.getElementById('txtPassword').value
+
+            submitLogin(username, password);
+        })
+
+    })
+
+</script>
+
+<head>
+    <link rel="shortcut icon" type="image/x-icon" href="public/favicon.ico" />
+</head>
+
+<br>
+<div align="center" class="row">
+    <div class="col-sm-2">
+        <img src="https://image.flaticon.com/icons/png/512/55/55160.png" height="100" width="100">
+    </div>
+    <div class="col-sm-8">
+        <h1 align="center">Phishing Login</h1>
+    </div>
+    <div class="col-sm-2">
+        <br>
+        <a class="btn btn-default pull-right" id="home" href="/" role="button">Home</a>
+    </div>
+</div>
+</div>
+
+<div align="center" id="login_row" class="row">
+    <div class="col-sm-12">
+        <form id=login-form action="/login_form" method="post">
+            <input type="email" placeholder="Email" id="txtUsername">
+            <br>
+            <input type="password" placeholder="Password" id="txtPassword">
+            <br>
+            <br>
+            <input type="submit" value="Sign In">
+        </form>
+        <pre align="center" id="authn_response">You are not Signed In</pre>
+    </div>
+    <br>
+    <h6><i>Please note: As this demo is on a Free Heroku licence, SSL is <b>NOT</b> configured</i></h6>
+    <h6><i>For Production use, SSL <b>MUST</b> be configured</i></h6>
+</div>

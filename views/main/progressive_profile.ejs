@@ -1,0 +1,77 @@
+<div align="center" class="row">
+  <br>
+  <div class="col-sm-2">
+    <img src="http://www.indinnovation.com/images/icons/innovation.png" height="100" width="100">
+  </div>
+  <div class="col-sm-8">
+    <h1 align="center">We'd like to get to know you!</h1>
+  </div>
+  <div class="col-sm-2">
+    <a class="btn btn-default pull-right" href="/" role="button">Home</a>
+    <br>
+    <br>
+    <a class="btn btn-default pull-right" href="/logout" role="button">Logout</a>
+  </div>
+</div>
+
+<hr>
+
+<div id="selector_row" class="row">
+
+  <div align="center" class="col-sm-2"></div>
+
+  <div align="center" class="col-sm-8">
+    <br>
+    <pre id="service-response"></pre>
+    <br>
+    <h3>Just fill in these details</h3>
+    <form action="/api/auth0rules/progressive_profile" method="POST">
+      <i>Location</i>
+      <br>
+      <input type="text" placeholder="London" name="location">
+      <br>
+      <i>Age</i>
+      <br>
+      <input type="text" placeholder="30" name="age">
+      <br>
+      <i>Favourite Sports Car</i>
+      <br>
+      <input type="text" placeholder="Porsche GT3" name="car">
+      <br>
+      <br>
+      <input type="hidden" id="token" name="token">
+      <input type="hidden" id="state" name="state">
+      <input type="submit" value="Update My Profile">
+    </form>
+    <br>
+    <br>
+    <form action="/api/auth0rules/skip_progressive_profile" method="POST">
+      <input type="hidden" id="state" name="state">
+      <input type="submit" value="Skip">
+    </form>
+
+  </div>
+
+  <div align="center" class="col-sm-2"></div>
+
+</div>
+
+<script>
+
+function parseJwt (token) {
+  var base64Url = token.split('.')[1];
+  var base64 = base64Url.replace('-', '+').replace('_', '/');
+  return JSON.parse(window.atob(base64));
+};
+
+tokenInfo = parseJwt('<%= env.token %>');
+
+  $(function () {
+
+    $('#service-response').text('Hi ' + tokenInfo.nickname + ', in our efforts to personalise and tailor our experiences for you\nplease feel free to fill in the form below\n\nOr click skip, and you can fill these details in later')
+    $('input[id=token]').val('<%= env.token %>');
+    $('input[id=state]').val('<%= env.state %>');
+    
+  });
+
+</script>

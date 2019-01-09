@@ -1,0 +1,199 @@
+<div align="center" class="row">
+  <br>
+  <div class="col-sm-2">
+    <img src="http://www.indinnovation.com/images/icons/innovation.png" height="100" width="100">
+  </div>
+  <div class="col-sm-8">
+    <h1 align="center">Hello!</h1>
+  </div>
+  <div class="col-sm-2">
+    <a class="btn btn-default pull-right" href="/" role="button">Home</a>
+    <br>
+    <br>
+    <a class="btn btn-default pull-right" href="/logout" role="button">Logout</a>
+  </div>
+</div>
+
+<hr>
+
+<div id="selector_row" class="row">
+
+  <div align="center" class="col-sm-2"></div>
+
+  <div align="center" class="col-sm-8">
+
+    <h3>Basic Services</h3>
+    <input type="button" class="btn btn-default" id="get-profile" value="UserInfo">
+    <input type="button" class="btn btn-default" id="get-user-api" value="getUserViaAPI">
+    <input type="button" class="btn btn-default" id="get-user-direct" value="getUserViaApp">
+    <input type="button" class="btn btn-default" id="verify-jwt" value="verifyJWT">
+    <input type="button" class="btn btn-default" id="revoke-tokens" value="revokeTokens">
+    <pre id="service-response"></pre>
+  </div>
+
+  <div align="center" class="col-sm-2"></div>
+
+</div>
+
+<script>
+
+  $(function () {
+
+    $('#service-response').text('You are signed in as ' + '<%= env.NICKNAME %>')
+
+    $('#get-profile').on('click', function (e) {
+      e.preventDefault();
+      $.ajax({
+        url: "/api/profile/userinfo",
+        method: "GET",
+        success: function (data) {
+
+          if (data.status === 302) {
+            window.location.href = data.responseJSON.redirect;
+          }
+
+          else {
+            $('#service-response').text('This is returned from the A0 Authentication API /userinfo Endpoint\nusing a back-end, secured call from this App\n\n' + JSON.stringify(data, null, 2))
+          }
+        },
+        error: function (data) {
+
+          if (data.status === 302) {
+            window.location.href = data.responseJSON.redirect;
+          }
+          else {
+
+            $('#service-response').text('ERROR\n' + JSON.stringify(data, null, 2))
+          }
+        }
+      });
+    });
+
+    $('#get-user-api').on('click', function (e) {
+      e.preventDefault();
+      $.ajax({
+        url: "/api/profile/getUserApi",
+        method: "GET",
+        success: function (data) {
+          {
+            if (data.status === 302) {
+            window.location.href = data.responseJSON.redirect;
+          }
+          else {
+
+            $('#service-response').text('This is returned from the A0 Management API /users:id Endpoint\nvia a back-end, secured API hosted at api.julianwilliam.com\n\n' + JSON.stringify(data, null, 2))
+
+          }
+        }
+        },
+        error: function (data) {
+          {
+            if (data.status === 302) {
+            window.location.href = data.responseJSON.redirect;
+          }
+          else {
+            $('#service-response').text('ERROR\n' + JSON.stringify(data, null, 2))
+          }
+        }
+        }
+      });
+    });
+
+    $('#get-user-direct').on('click', function (e) {
+      e.preventDefault();
+      $.ajax({
+        url: "/api/profile/getUserApp",
+        method: "GET",
+        success: function (data) {
+          if (data.status === 302) {
+            window.location.href = data.responseJSON.redirect;
+          }
+          else {
+            $('#service-response').text('This is returned from the A0 Management API /users:id Endpoint\nusing a back-end, secured call from this App\n\n' + JSON.stringify(data, null, 2))
+          }
+        },
+        error: function (data) {
+          if (data.status === 302) {
+            window.location.href = data.responseJSON.redirect;
+          }
+          else {
+            $('#service-response').text('ERROR\n' + JSON.stringify(data, null, 2))
+          }
+        }
+      });
+    });
+
+    $('#verify-jwt').on('click', function (e) {
+      e.preventDefault();
+      $.ajax({
+        url: "/api/utils/verifyJWT/?token=1234",
+        method: "GET",
+        success: function (data) {
+          //console.log(data.status)
+          
+          if (data.status === 302) {
+            window.location.href = data.responseJSON.redirect;
+          }
+          else {
+            $('#service-response').text('JWT Token is verified\nBelow is its verified payload\n' + JSON.stringify(data, null, 2))
+          }
+
+        },
+        error: function (data) {
+          console.log(data.status)
+          
+          if (data.status === 302) {
+            window.location.href = data.responseJSON.redirect;
+          }
+          else {
+            $('#service-response').text('ERROR\n' + JSON.stringify(data, null, 2))
+          } 
+          
+        }
+
+      });
+    });
+
+    $('#revoke-tokens').on('click', function (e) {
+
+      var data = {
+        revoke: true,
+      };
+      var dataJson = JSON.stringify(data);
+
+      e.preventDefault();
+      $.ajax({
+        url: "/api/utils/revokeTokens",
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        processData: false,
+        data: dataJson,
+        success: function (data) {
+          if (data.status === 302) {
+            window.location.href = data.responseJSON.redirect;
+          }
+
+          else {
+
+            $('#service-response').text('You will need to Sign In again to continue using services.\n\nClick any of the services above to see...\n\n' + JSON.stringify(data, null, 2))
+
+          }
+        },
+        error: function (data) {
+
+          if (data.status === 302) {
+            window.location.href = data.responseJSON.redirect;
+          }
+          else {
+
+            $('#service-response').text('ERROR\n' + JSON.stringify(data, null, 2))
+          }
+        }
+      });
+    });
+
+  });
+
+</script>

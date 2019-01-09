@@ -1,0 +1,70 @@
+<script type="text/javascript">
+
+  if ('<%= loggedIn %>' === 'true') {
+    window.location.href = "/user"
+  }
+
+  var webAuth = new auth0.WebAuth({
+    domain: '<%= env.AUTH0_DOMAIN  %>',
+    clientID: '<%= env.AUTH0_CLIENT_ID %>'
+  });
+
+  $(function () {
+    $('#embeddedLogin').click(function (e) {
+      e.preventDefault();
+      embeddedLock();
+    });
+
+    $('#popupLogin').click(function (e) {
+      e.preventDefault();
+
+      webAuth.popup.authorize({
+
+        responseType: 'code',
+        connection: '<%= env.CONNECTION %>',
+        redirectUri: '<%= env.POPUP_LOGIN_REDIRECT_URL %>',
+        scope: '<%= env.SCOPE %>',
+        audience: '<%= env.AUDIENCE %>'
+
+      })
+    });
+
+  })
+
+</script>
+
+<head>
+  <link rel="shortcut icon" type="image/x-icon" href="public/favicon.ico" />
+</head>
+
+<br>
+<div align="center" class="row">
+  <div class="col-sm-2">
+    <img src="https://image.flaticon.com/icons/png/512/55/55160.png" height="100" width="100">
+    <h5>Legacy</h5>
+    <br>
+    <a class="btn btn-default pull-left" id=embeddedLogin role="button">Embedded Login</a>
+    <br>
+    <br>
+    <a class="btn btn-default pull-left" href="/legacyLogin" role="button">Legacy Login</a>
+    <br>
+    <br>
+    <a class="btn btn-default pull-left" href="/phishing" role="button">Phishing Login</a>
+    <br>
+    <br>
+  </div>
+  <div class="col-sm-8">
+    <h1 align="center">Auth0 Regular Web Application</h1>
+  </div>
+  <div class="col-sm-2">
+    <img src="http://www.indinnovation.com/images/icons/innovation.png" height="100" width="100">
+    <h5>Next Gen</h5>
+    <br>
+    <a class="btn btn-default pull-right" href="/signin" role="button">Sign In</a>
+    <br>
+    <br>
+    <a class="btn btn-default pull-right" id=popupLogin role="button">Popup Login</a>
+    <br>
+    <br>
+  </div>
+</div>

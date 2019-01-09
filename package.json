@@ -1,0 +1,49 @@
+{
+  "name": "jwlm-web-application",
+  "version": "1.0.0",
+  "description": "jwlm web app integrated to Auth0 for Authentication and Authorisation",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/julianwilliam/jwlm_web_app"
+  },
+  "author": "Auth0",
+  "license": "MIT",
+  "scripts": {
+    "start": "node ./bin/www",
+    "start-dev": "nodemon ./bin/www"
+  },
+  "dependencies": {
+    "auth0": "^2.14.0",
+    "auth0-api-jwt-rsa-validation": "0.0.1",
+    "body-parser": "^1.18.3",
+    "connect-ensure-login": "^0.1.1",
+    "connect-flash": "^0.1.1",
+    "connect-redis": "^3.4.0",
+    "cookie-parser": "^1.4.3",
+    "cors": "^2.8.1",
+    "debug": "^2.6.1",
+    "dotenv": "^4.0.0",
+    "ejs": "^2.6.1",
+    "express": "^4.16.4",
+    "express-ejs-layouts": "^2.5.0",
+    "express-jwt": "^5.1.0",
+    "express-session": "^1.15.6",
+    "helmet": "^3.15.0",
+    "jsonwebtoken": "^8.4.0",
+    "jwks-rsa": "^1.3.0",
+    "jwt-decode": "^2.2.0",
+    "morgan": "^1.9.1",
+    "npm": "^6.4.1",
+    "passport": "^0.3.0",
+    "passport-auth0": "^0.6.0",
+    "passport-oauth2-resource-owner-credentials": "0.0.3",
+    "pug": "~2.0.0-beta11",
+    "redis": "^2.8.0",
+    "restler": "^3.4.0",
+    "serve-favicon": "^2.5.0",
+    "uuid": "^3.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.7"
+  }
+}
