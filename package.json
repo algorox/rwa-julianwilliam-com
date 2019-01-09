@@ -1,10 +1,10 @@
 {
-  "name": "jwlm-web-application",
+  "name": "rwa-julianwilliam-com",
   "version": "1.0.0",
-  "description": "jwlm web app integrated to Auth0 for Authentication and Authorisation",
+  "description": "julianwilliam Regular Web Application",
   "repository": {
     "type": "git",
-    "url": "https://github.com/julianwilliam/jwlm_web_app"
+    "url": "https://github.com/algorox/rwa-julianwilliam-com"
   },
   "author": "Auth0",
   "license": "MIT",
