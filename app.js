@@ -47,6 +47,7 @@ const strategy = new Auth0Strategy({
   // extraParams.id_token has the JSON Web Token
   // profile has all the information from the user
 
+
   req.session.access_token = access_token;
   req.session.refresh_token = refresh_token;
   req.session.expires_in = extraParams.expires_in;
