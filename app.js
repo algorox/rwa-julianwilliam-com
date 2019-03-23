@@ -27,14 +27,20 @@ const signUpAPIs = require('./routes/apis/signup');
 const utilAPIs = require('./routes/apis/utils');
 const auth0rulesAPIs = require('./routes/apis/auth0rules');
 
+//////////////////////////////////////////////////////////////////////////////
+//HTTPS TURNED OFF IN PASSPORT JS MODULE _ NOT TO BE USED IN PRODUCTION!!!////
+//JUST ADD THE HTTPS BACK IF NEEDED///////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+
 // This will configure Passport to use Auth0
 const strategy = new Auth0Strategy({
   domain: process.env.AUTH0_DOMAIN,
   clientID: process.env.AUTH0_CLIENT_ID,
   clientSecret: process.env.AUTH0_CLIENT_SECRET,
-  callbackURL: process.env.AUTH0_CALLBACK_URL || 'http://rwa.julianwilliam.com/callback',
+  callbackURL: process.env.AUTH0_CALLBACK_URL || 'http://algorox.com:3000/callback',
   passReqToCallback: true
 }, function (req, access_token, refresh_token, extraParams, profile, done) {
+
   // This callback is invoked event after authorize call originating
   // server-side
   // accessToken is the token to call Auth0 API

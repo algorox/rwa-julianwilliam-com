@@ -13,7 +13,8 @@ const env = {
 function authorize (req, res, promptNone, api) {
   promptNone = promptNone || false;
   req.session.state = uuidv4();
-  let url = `https://${env.AUTH0_DOMAIN}/authorize?response_type=code&client_id=${env.AUTH0_CLIENT_ID}` +
+  //CHANGE TO HTTPS IN PRODUCTION!!!!
+  let url = `http://${env.AUTH0_DOMAIN}/authorize?response_type=code&client_id=${env.AUTH0_CLIENT_ID}` +
       `&redirect_uri=${env.AUTH0_CALLBACK_URL}&audience=${env.AUDIENCE}&state=${req.session.state}&scope=${env.SCOPE}&connection=${env.CONNECTION}`;
   if (promptNone) {
     url = `${url}&prompt=none`;
