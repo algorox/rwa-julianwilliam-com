@@ -16,7 +16,7 @@ function ensureTokenValid (req, res, next) {
       }).catch((err) => {
         // handle error
         console.error(err);
-        res.render('failure', { 
+        res.render('errors/failure', { 
           error: 'Token Validation Error',
           error_description: err
         });
